@@ -3,10 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime 
 
 
-main_web=Flask(__name__)
-main_web.config['SQLALCHEMY_DATABASE_URL']='sqlite:///test.db'
+app=Flask(__name__)
 
-db=SQLAlchemy(main_web)
+app.config['SQLALCHEMY_DATABASE_URL']='sqlite:///test.db'
+
+db=SQLAlchemy(app)
 
 class Todo(db.model):
     id= db.column(db.integer,primary_key=True)
@@ -18,7 +19,7 @@ class Todo(db.model):
         return '<task %r>'  %self.id
 
 
-@main_web.route('/')
+@app.route('/')
 def index():
     return render_template('index.html')
 
@@ -26,6 +27,6 @@ def index():
 
 
 if __name__=="__main_web__":
-    with main_web.app_context():
+    with app.app_context():
         db.create_all()
-    main_web.run(debug=True)
+    app.run(debug=True)
