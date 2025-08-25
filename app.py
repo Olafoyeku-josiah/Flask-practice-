@@ -5,15 +5,15 @@ from datetime import datetime
 
 app=Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URL']='sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///test.db'
 
 db=SQLAlchemy(app)
 
-class Todo(db.model):
-    id= db.column(db.integer,primary_key=True)
-    content=db.column(db.string(200), nullable=False)
-    collected=db.column(db.integer, default=0)
-    date_created=db.column(db.integer, default=datetime.utcnow)
+class Todo(db.Model):
+    id= db.column(db.Integer, primary_key=True)
+    content=db.column(db.String(200), nullable=False)
+    collected=db.column(db.Integer, default=0)
+    date_created=db.column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<task %r>'  %self.id
@@ -26,7 +26,7 @@ def index():
 
 
 
-if __name__=="__main_web__":
+if __name__=="__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
