@@ -2,10 +2,34 @@
 
 
 {% block head%}
-    
-{% end block%}
+
+{% endblock %}
 
 
 {% block body%}
-<h1>Template</h1>
-{% end block%}
+<div>
+    <h2>Task Master</h2>
+    <table>
+        <tr>
+        <th>Tasks</th>
+        <th>Added</th>
+        <th>Actions</th>
+        </tr>
+        {% for tasks in tasks %}
+            <tr>
+                <td {{task.content}}></td>
+                <td{{tasks.date_created.date()}}></td>
+                <td>
+                    <button><a href="/delete/{{tasks.id}}"> Delete</a></button>
+                    <br>
+                    <button><a href="/update/{{tasks.id}}"> Update</a></button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <form action="/">
+        <input type="text" name="content" id="content" />
+        <input type="submit" value="add task"/>
+    </form>
+</div>
+{% endblock %}
